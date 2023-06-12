@@ -1,6 +1,7 @@
 import json
 
-def X_card_number(card_number):
+
+def x_card_number(card_number):
     """
     Маскирует номер карты под звездочки
     """
@@ -10,7 +11,7 @@ def X_card_number(card_number):
     return " ".join(old_card)
 
 
-def X_bank_number(bank_number):
+def x_bank_number(bank_number):
     """
     Маскирует номер счёта под звёздочки
     """
@@ -20,11 +21,11 @@ def X_bank_number(bank_number):
     return " ".join(old_number)
 
 
-def load_operations(FILE):
+def load_operations(file):
     """
     Загружает и сортирует данные из джейсона
     """
-    with open(FILE, 'r', encoding='utf-8') as file:
+    with open(file, 'r', encoding='utf-8') as file:
         loaded = json.load(file)
         info_list = []
         for operation in loaded:
@@ -33,9 +34,10 @@ def load_operations(FILE):
                     info_list.append(operation)
             except LookupError:
                 error = "Операция не выполнена"
-        last_operations = info_list[-5:]
-        sorted_operations = sorted(last_operations, key=lambda x: x["date"], reverse=True)
-        return sorted_operations
+        sorted_operations = sorted(info_list, key=lambda x: x["date"], reverse=True)
+        last_operations = sorted_operations[:5]
+
+        return last_operations
 
 
 def format_date(data):
